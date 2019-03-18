@@ -79,24 +79,40 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   
   
 <body class="w3-light-grey">
-<!--clickable Dropdown-->
 
+<!--clickable Dropdown-->
 <div class="Navigation">
-  <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-  <div id="myDropdown" class="dropdown-content">
+  <button onclick="myFunction1()" class="dropbtn">Home</button>
+  <div id="drop1" class="dropdown-content">
     <a href="index.html">Home</a>
+  </div>
+
+  <button onclick="myFunction2()" class="dropbtn">Research</button>
+  <div id="drop2" class="dropdown-content">
+    <a href="profData.html">My Talks, Papers, and Posters</a>
+    <a href="experience.html">My Research Experience</a>	
+    <a href="nmuMuSR.html">NMU MuSR</a>
+  </div>
+
+  <button onclick="myFunction3()" class="dropbtn">Demos and Courses</button>
+  <div id="drop3" class="dropdown-content">
     <a href="SimpleHarmonicOscillator.html">Simple Harmonic Oscillator</a>
-    <a href="BarChart.html">Bar Graph</a>
   </div>
 </div>
+
 
 <script>
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
+function myFunction1(ButtonId) {
+  document.getElementById("drop1").classList.toggle("show");
 }
-
+function myFunction2(ButtonId) {
+  document.getElementById("drop2").classList.toggle("show");
+}
+function myFunction3(ButtonId) {
+  document.getElementById("drop3").classList.toggle("show");
+}
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {

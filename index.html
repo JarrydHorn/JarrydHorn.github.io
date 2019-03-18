@@ -1,141 +1,152 @@
 <!DOCTYPE html>
 <html>
+
 <title>J. Horn Dash </title>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
 <style>
-body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
-.dropbtn {
-  background-color: #3498DB;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
+	body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+	.dropbtn {
+		background-color: #3498DB;
+		color: white;
+		padding: 16px;
+		font-size: 16px;
+		border: none;
+		cursor: pointer;
+	}
 
-.dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
-}
+	.dropbtn:hover, .dropbtn:focus {
+		background-color: #2980B9;
+	}
 
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	}
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  overflow: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		background-color: #f1f1f1;
+		min-width: 160px;
+		overflow: auto;
+		box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		z-index: 1;
+	}
 
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
+	.dropdown-content a {
+		color: black;
+		padding: 12px 16px;
+		text-decoration: none;
+		display: block;
+	}
 
-.dropdown a:hover {background-color: #ddd;}
+	.dropdown a:hover {background-color: #ddd;}
 
-.show {display: block;}
+	.show {display: block;}
 </style>
+
 <body class="w3-light-grey">
 
 <!-- Header -->
-<header class="w3-container w3-center w3-padding-32">
-  <h1><b>J. Horn Dash</b></h1>
-  <p> Personal Webpage and Dashboard</p>
-</header>
-<head>
-  <link rel="icon" href="https://thestudyplus.com/wp-content/uploads/2017/05/physics.png"> 
-</head>
+	<header class="w3-container w3-center w3-padding-32">
+		<h1><b>J. Horn Dash</b></h1>
+		<p> Personal Webpage and Dashboard</p>
+	</header>
+
+	<head>
+		<link rel="icon" href="https://thestudyplus.com/wp-content/uploads/2017/05/physics.png"> 
+	</head>
+
 <!--clickable Dropdown-->
-<div class="Navigation">
-  <button onclick="myFunction()" class="dropbtn">Home</button>
-  <div id="myDropdown" class="dropdown-content">
-    <a href="index.html">Home</a>
-  </div>
-</div>
+	<div class="Navigation">
+		<button onclick="myFunction1()" class="dropbtn">Home</button>
+			<div id="drop1" class="dropdown-content">
+				<a href="index.html">Home</a>
+			</div>
+		<button onclick="myFunction2()" class="dropbtn">Research</button>
+		
+			<div id="drop2" class="dropdown-content">
+				<a href="profData.html">My Talks, Papers, and Posters</a>
+				<a href="experience.html">My Research Experience</a>	
+				<a href="nmuMuSR.html">NMU MuSR</a>
+			</div>
 
-<div class="Navigation">
-  <button onclick="myFunction()" class="dropbtn">Research</button>
-  <div id="myDropdown" class="dropdown-content">
-    <a href="profData.html">My Talks, Papers, and Posters</a>
-    <a href="experience.html">My Research Experience</a>
-  </div>
-</div>
-
-<div class="Navigation">
-  <button onclick="myFunction()" class="dropbtn">Demos and Courses</button>
-  <div id="myDropdown" class="dropdown-content">
-    <a href="SimpleHarmonicOscillator.html">Simple Harmonic Oscillator</a>
-    <a href="BarChart.html">Bar Graph</a>
-  </div>
-</div>
+		<button onclick="myFunction3()" class="dropbtn">Demos and Courses</button>
+		
+			<div id="drop3" class="dropdown-content">
+				<a href="SimpleHarmonicOscillator.html">Simple Harmonic Oscillator</a>
+				<a href="BarChart.html">Bar Graph</a>
+			</div>
+	</div>
 
 
-<script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
+	<script>
+		/* When the user clicks on the button, 
+		toggle between hiding and showing the dropdown content */
+		function myFunction1(ButtonId) {
+			document.getElementById("drop1").classList.toggle("show");
+		}
+		function myFunction2(ButtonId) {
+			document.getElementById("drop2").classList.toggle("show");
+		}
+		function myFunction3(ButtonId) {
+			document.getElementById("drop3").classList.toggle("show");
+		}
 
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
+		// Close the dropdown if the user clicks outside of it
+		window.onclick = function(event) {
+			if (!event.target.matches('.dropbtn')) {
+				var dropdowns = document.getElementsByClassName("dropdown-content");
+				var i;
+				for (i = 0; i < dropdowns.length; i++) {
+					var openDropdown = dropdowns[i];
+					if (openDropdown.classList.contains('show')) {
+						openDropdown.classList.remove('show');
+					}
+				}
+			}
+		}
+		
+	</script>
+<!--END Clickable Dropdown -->
 
 <!-- w3-content defines a container for fixed size centered content, 
 and is wrapped around the whole page content, except for the footer in this example -->
-<div class="w3-content" style="max-width:1400px">
+	<div class="w3-content" style="max-width:1400px">
 
-<!--/Clickable Dropdown -->
 
 <!-- Grid -->
-<div class="w3-row">
+		<div class="w3-row">
 
 
 <!-- Introduction menu -->
-<div class="w3-col l4">
+			<div class="w3-col l4">
   <!-- About Card -->
-  <div class="w3-card w3-margin w3-margin-top">
-  <img src="https://www.nmu.edu/physics/sites/DrupalPhysics/files/UserFiles/Pictures/Horn-in_lab-OSU-2018_sm.png" style="width:100%">
-    <div class="w3-container w3-white">
-      <h4><b> Jarryd Horn <b></h4>
-      <p> Personl web page designed to serve as professional outline and research dashboard.</p>
-    </div>
-  </div><hr>
+				<div class="w3-card w3-margin w3-margin-top">
+					<img src="https://www.nmu.edu/physics/sites/DrupalPhysics/files/UserFiles/Pictures/Horn-in_lab-OSU-2018_sm.png" style="width:100%">
+						<div class="w3-container w3-white">
+							<h4><b> Jarryd Horn <b></h4>
+							<p> Personl web page designed to serve as professional outline and research dashboard.</p>
+						</div>
+				</div><hr>
   
   
 <!-- END Introduction Menu -->
 
-</div>
+			</div>
 
-</div>
+		</div>
 
 <!-- END GRID -->
-</div><br>
+	</div><br>
 
 <!-- END w3-content -->
-</div>
 
 
 </body>
