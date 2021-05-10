@@ -248,6 +248,7 @@ window.onload = function(){
 			keysDown[e.keyCode] = false;
 		}
 	});
+	bgMusic.play();
 };
 
 function drawMap()
