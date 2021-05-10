@@ -233,8 +233,10 @@ window.onload = function(){
 	canvas.addEventListener("click", function (evt) 
 	{
 		var mousePos = getMousePos(canvas, evt);
-		if(player.position[0]-mousePos.x < tileW){ keysDown[37] = true; click=true; } else { keysDown[39] = true; click=true; }
-		if(player.position[1]-mousePos.y < tileH){ keysDown[40] = true; click=true; } else { keysDown[38] = true; click=true; }
+		if(player.position[0]-mousePos.x < tileW){ keysDown[37] = true; click=true; }
+		if(player.position[0]-mousePos.x > tileW){ keysDown[39] = true; click=true; }
+		if(player.position[1]-mousePos.y < tileH){ keysDown[40] = true; click=true; } 
+		if(player.position[1]-mousePos.y > tileH){ keysDown[38] = true; click=true; }
 	}, false);
 	//Get Mouse Position
 	function getMousePos(canvas, evt) 
