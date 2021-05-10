@@ -226,7 +226,7 @@ function clearInput(){
 }
 
 window.onload = function(){
-	canvas = document.getElementById('game')
+	canvas = document.getElementById('game');
 	ctx = canvas.getContext('2d');
 	var up = document.getElementById('up'),	down = document.getElementById('down'), left = document.getElementById('left'), right = document.getElementById('right');
 	
