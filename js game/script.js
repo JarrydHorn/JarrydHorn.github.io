@@ -1,3 +1,4 @@
+var click = false;
 var ctx = null;
 var tileW = 45, tileH = 45;
 var mapW = 20, mapH = 10;
@@ -213,7 +214,7 @@ function reset(){
 	bgMusic.play();
 }
 
-function unStick(){
+function clearInput(){
 	keysDown = {
 		82: false,
 		70: false,
@@ -226,10 +227,15 @@ function unStick(){
 
 window.onload = function(){
 	ctx = document.getElementById('game').getContext('2d');
+	var up = document.getElementById('up'),	down = document.getElementById('down'), left = document.getElementById('left'), right = document.getElementById('right');
+
 	requestAnimationFrame(drawGame);
 	ctx.font = "bold 16pt sans-serif";
-	
-
+	console.log(typeof(left));
+	left.onclick = function(){ keysDown[37] = true; click=true; };
+	up.addEventListener("click", function(){ keysDown[38] = true; click=true; });
+	right.addEventListener("click", function(){ keysDown[39] = true; click=true; });
+	down.addEventListener("click", function(){ keysDown[40] = true; click=true; });
 	window.addEventListener("keydown", function(e)
 	{
 		if(e.keyCode>=37 && e.keyCode<=40 || e.keyCode==82){
@@ -278,7 +284,7 @@ function getInput()
 	if(keysDown[37]){ x--; player.sy = 2;}
 	if(keysDown[39]){ x++; player.sy = 3;}
 	if(keysDown[82]){ level++; reset(); console.log(level); }
-	unStick();
+	clearInput();
 	input = [x,y];
 }
 
@@ -407,5 +413,6 @@ function drawGame()
 	drawCharacters(currentFrameTime);
 
 	lastFrameTime = currentFrameTime;
+	if(click){ clearInput(); click=false;}
 	requestAnimationFrame(drawGame);
 }
