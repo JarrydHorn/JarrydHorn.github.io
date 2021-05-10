@@ -210,7 +210,6 @@ function reset(){
 		levelOne();
 		bgMusic = lvl1;
 		level=1;
-		alert("That's all for now, keep playing to get more points... *shrug*");
 	}
 	bgMusic.play();
 }
@@ -325,6 +324,7 @@ function checkCollision()
 	}
 	if(remainingGold == 0)
 	{
+		if(level==3){alert("That's all for now, keep playing to get more points... *shrug*");};
 		level++;
 		lives++;
 		reset();
