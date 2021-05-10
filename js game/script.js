@@ -251,12 +251,7 @@ window.onload = function(){
 	}
 	
 	requestAnimationFrame(drawGame);
-	ctx.font = "bold 16pt sans-serif";
-	left.onclick = function(){ keysDown[37] = true; click=true; };
-	up.addEventListener("click", function(){ keysDown[38] = true; click=true; });
-	right.addEventListener("click", function(){ keysDown[39] = true; click=true; });
-	down.addEventListener("click", function(){ keysDown[40] = true; click=true; });
-	
+	ctx.font = "bold 16pt sans-serif";	
 	window.addEventListener("keydown", function(e)
 	{
 		if(e.keyCode>=37 && e.keyCode<=40 || e.keyCode==82){
