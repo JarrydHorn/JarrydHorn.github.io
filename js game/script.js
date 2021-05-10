@@ -1,5 +1,5 @@
 var click = false;
-var ctx = null;
+var canvas, ctx = null;
 var tileW = 45, tileH = 45;
 var mapW = 20, mapH = 10;
 var enemyCount = 0;
@@ -226,9 +226,27 @@ function clearInput(){
 }
 
 window.onload = function(){
-	ctx = document.getElementById('game').getContext('2d');
+	canvas = document.getElementById('game')
+	ctx = canvas.getContext('2d');
 	var up = document.getElementById('up'),	down = document.getElementById('down'), left = document.getElementById('left'), right = document.getElementById('right');
-
+	
+	canvas.addEventListener("click", function (evt) 
+	{
+		var mousePos = getMousePos(canvas, evt);
+		if(player.position[0]-mousePos.x < tileW){ keysDown[37] = true; click=true; } else { keysDown[39] = true; click=true; }
+		if(player.position[1]-mousePos.y < tileH){ keysDown[40] = true; click=true; } else { keysDown[38] = true; click=true; }
+	}, false);
+	//Get Mouse Position
+	function getMousePos(canvas, evt) 
+	{
+		var rect = canvas.getBoundingClientRect();
+		return 
+		{
+			x: evt.clientX - rect.left,
+			y: evt.clientY - rect.top
+		};
+	}
+	
 	requestAnimationFrame(drawGame);
 	ctx.font = "bold 16pt sans-serif";
 	console.log(typeof(left));
@@ -236,6 +254,7 @@ window.onload = function(){
 	up.addEventListener("click", function(){ keysDown[38] = true; click=true; });
 	right.addEventListener("click", function(){ keysDown[39] = true; click=true; });
 	down.addEventListener("click", function(){ keysDown[40] = true; click=true; });
+	
 	window.addEventListener("keydown", function(e)
 	{
 		if(e.keyCode>=37 && e.keyCode<=40 || e.keyCode==82){
