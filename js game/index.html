@@ -9,17 +9,27 @@
 <a href="../index.html"> HOME </a> 
   <br>
 <style> 
-.button { 
-height: 50px; 
-width: 200px; 
-} 
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.dpad {width: 250px;}
 </style>
+  
 <canvas id="game" width="900" height="450"></canvas>
   <br>
-<button id="up"> [ UP ] </button>
-<button id="down"> [DOWN] </button>
-<button id="left"> [<===] </button>
-<button id="right"> [===>] </button>
+<button class="button dpad" id="up"> [ UP ] </button>
+<button class="button dpad" id="down"> [DOWN] </button>
+<button class="button dpad" id="left"> [<===] </button>
+<button class="button dpad" id="right"> [===>] </button>
 
 <img id="sprite" src="img/player.png" style="display:none;" />
 <img id="gold" src="img/gold.png" style="display:none;" />
