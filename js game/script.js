@@ -233,26 +233,25 @@ window.onload = function(){
 	canvas.addEventListener("click", function (evt) 
 	{
 		var mousePos = getMousePos(canvas, evt);
-		alert(mousePos);
-		if(player.position[0]-mousePos.x < tileW){ keysDown[37] = true; click=true; }
-		if(player.position[0]-mousePos.x > tileW){ keysDown[39] = true; click=true; }
-		if(player.position[1]-mousePos.y < tileH){ keysDown[40] = true; click=true; } 
+		if(player.position[0]-mousePos.x > tileW){ keysDown[37] = true; click=true; }
+		if(player.position[0]-mousePos.x < -tileW){ keysDown[39] = true; click=true; }
+		if(player.position[1]-mousePos.y < -tileH){ keysDown[40] = true; click=true; } 
 		if(player.position[1]-mousePos.y > tileH){ keysDown[38] = true; click=true; }
 	}, false);
 	//Get Mouse Position
 	function getMousePos(canvas, evt) 
 	{
 		var rect = canvas.getBoundingClientRect();
-		return 
+		var pTuple = 
 		{
 			x: evt.clientX - rect.left,
 			y: evt.clientY - rect.top
 		};
+		return pTuple;
 	}
 	
 	requestAnimationFrame(drawGame);
 	ctx.font = "bold 16pt sans-serif";
-	console.log(typeof(left));
 	left.onclick = function(){ keysDown[37] = true; click=true; };
 	up.addEventListener("click", function(){ keysDown[38] = true; click=true; });
 	right.addEventListener("click", function(){ keysDown[39] = true; click=true; });
