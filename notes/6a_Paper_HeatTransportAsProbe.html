@@ -1,0 +1,50 @@
+<!doctype html>
+<head>
+	<a href="index.html"> Tags</a>
+	<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head>
+
+<body>
+<br>
+	<h4><u> "Heat Transport as Probe of Superconducting Gap Structure" </u></h4>
+	This paper by Shakeripour, Petrovic and Taillefer is a good resource for understanding thermal conductivity data for a superconductor. <br>
+	The paper gives examples and brief explanations for the temperature and magnetic field dependence of thermal conductivity of fully gapped and nodal superconductors. <br>
+	<br> The paper is divided into four sections and a summary, but for now I will only outline the first 2:
+	<ol>
+		<li> Residual heat conduction as T-> 0
+			<ul>
+				<li> k generally has 2 terms: linear and cubic. Linear term represents conduction due to thermally activated quasi-particled (e.g. electrons).
+				<li> For s-wave SC: k/T -> 0 for T->0 (since thermally activated quasi-particle, TAQP, d.o.s. should go to zero for fully gapped SC)
+				<li> For nodal SC: there are residual TAQP d.o.s. at T->0 that are protected by symmetry against disorder and therefore conduct heat
+				<li> see figure 1 of <a href="https://iopscience.iop.org/article/10.1088/1367-2630/11/5/055065/pdf"> [1] </a>
+			</ul>
+		<br>
+		<li> Magnetic Field Dependence
+			<ul>
+				<li> For s-wave SC: TAQP are located in vortex core, therefore only conduction by tunneling => exponential with field (positive concavity)
+				<li> For nodal SC: Conduction is dominated by TAQP outside vortex core (at stated near node) with 2 field dependent processes:
+					<ul>
+						<li> Doppler shift caused by field-induced superfluid flow results in shift in low-energy d.o.s. proportional to B^1/2 (this effect dominates at low fields)
+						<li> Zeeman effect results in shift in low-energy d.o.s. proportional to B (dominates at high fields)
+					</ul>
+				<li> see figure 2 of <a href="https://iopscience.iop.org/article/10.1088/1367-2630/11/5/055065/pdf"> [1] </a>
+			</ul>
+	</ol>
+
+	<p><i> Linked Notes: </i>
+		<br><a href="6b_PhysicsNotes_TCvsH.html"> Field Dependence of Thermal Conductivity </a>
+		<br><a href="6c_PhysicsNotes_TCvsT.html"> Residual Heat Conduction as T -> 0 </a>
+
+	<p><i> Tags: </i>
+	<br> <a href="tag_thermalConductivity.html"> Thermal Conductivity </a>
+
+	<p><i> References: </i>
+		<br><a href="https://iopscience.iop.org/article/10.1088/1367-2630/11/5/055065/pdf"> [1] H.  Shakeripour, C Petrovic and Louis Taillefer NJP (2009) "Heat Transport as Probe of Superconducting Gap Structure" </a>
+
+</body>
+</html>
