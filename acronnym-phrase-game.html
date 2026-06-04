@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acronym Phrase Guess Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121213;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      margin: 0;
+    }
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    p {
+      color: #cfcfcf;
+      text-align: center;
+      max-width: 800px;
+    }
+
+    .top-controls {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    select, button, input {
+      font-size: 16px;
+      border-radius: 6px;
+    }
+
+    select, input {
+      padding: 12px;
+      border: none;
+      outline: none;
+    }
+
+    button {
+      padding: 12px 18px;
+      border: none;
+      cursor: pointer;
+      background: #538d4e;
+      color: white;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.92;
+    }
+
+    .acronym-box {
+      margin-top: 18px;
+      font-size: 42px;
+      font-weight: bold;
+      letter-spacing: 6px;
+      background: #1f1f22;
+      border: 2px solid #3a3a3c;
+      border-radius: 10px;
+      padding: 16px 24px;
+      min-width: 180px;
+      text-align: center;
+    }
+
+    #game {
+      margin-top: 24px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .tile {
+      min-width: 120px;
+      padding: 14px 10px;
+      text-align: center;
+      border: 2px solid #3a3a3c;
+      background: #121213;
+      color: white;
+      border-radius: 6px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .correct {
+      background: #538d4e;
+      border-color: #538d4e;
+    }
+
+    .present {
+      background: #b59f3b;
+      border-color: #b59f3b;
+    }
+
+    .absent {
+      background: #3a3a3c;
+      border-color: #3a3a3c;
+    }
+
+    .input-area {
+      margin-top: 24px;
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      max-width: 900px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    #guessInput {
+      flex: 1;
+      min-width: 320px;
+      max-width: 650px;
+    }
+
+    #message {
+      margin-top: 16px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .subtext {
+      margin-top: 10px;
+      color: #aaaaaa;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .hidden-until-start {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Guess the Phrase</h1>
+  <p>
+    Pick a phrase set from the dropdown, then guess the full phrase from its acronym.
+    Green = right word in the right position.
+    Yellow = right word in the wrong position.
+    Gray = word not in the phrase.
+  </p>
+
+  <div class="top-controls">
+    <select id="phraseSelect"></select>
+    <button id="startBtn">Start Game</button>
+  </div>
+
+  <div id="playArea" class="hidden-until-start">
+    <div class="acronym-box" id="acronymDisplay"></div>
+    <div class="subtext" id="wordCountDisplay"></div>
+
+    <div id="game"></div>
+
+    <div class="input-area">
+      <input id="guessInput" type="text" placeholder="Enter the full phrase..." />
+      <button id="guessBtn">Guess</button>
+      <button id="restartBtn">Restart</button>
+    </div>
+
+    <div id="message"></div>
+  </div>
+
+  <script>
+    // ============================================
+    // HARDCODE YOUR PHRASES HERE
+    // label = what appears in dropdown
+    // phrase = actual answer
+    // ============================================
+    const PUZZLES = [
+      { label: "H.C.D.S.M.", phrase: "he could've done so much" },
+      { label: "S.C.D.S.M.W.S.A.M.", phrase: "she could've done so much were she a man" },
+      { label: "S.C.S.S.M.A.", phrase: "she could've supported so many accomplishments" }
+    ];
+
+    const maxGuesses = 6;
+    let answer = [];
+    let currentPhrase = "";
+    let guessCount = 0;
+    let gameOver = false;
+
+    const phraseSelect = document.getElementById("phraseSelect");
+    const startBtn = document.getElementById("startBtn");
+    const playArea = document.getElementById("playArea");
+    const acronymDisplay = document.getElementById("acronymDisplay");
+    const wordCountDisplay = document.getElementById("wordCountDisplay");
+    const gameEl = document.getElementById("game");
+    const guessInput = document.getElementById("guessInput");
+    const guessBtn = document.getElementById("guessBtn");
+    const restartBtn = document.getElementById("restartBtn");
+    const messageEl = document.getElementById("message");
+
+    function normalizePhrase(text) {
+      return text
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s']/g, "")
+        .replace(/\s+/g, " ");
+    }
+
+    function getAcronym(words) {
+      return words.map(word => word[0].toUpperCase()).join("");
+    }
+
+    function populateDropdown() {
+      phraseSelect.innerHTML = "";
+      PUZZLES.forEach((puzzle, index) => {
+        const option = document.createElement("option");
+        option.value = index;
+        option.textContent = puzzle.label;
+        phraseSelect.appendChild(option);
+      });
+    }
+
+    function evaluateGuess(guessWords, answerWords) {
+      const result = new Array(guessWords.length).fill("absent");
+      const used = new Array(answerWords.length).fill(false);
+
+      for (let i = 0; i < guessWords.length; i++) {
+        if (guessWords[i] === answerWords[i]) {
+          result[i] = "correct";
+          used[i] = true;
+        }
+      }
+
+      for (let i = 0; i < guessWords.length; i++) {
+        if (result[i] === "correct") continue;
+
+        for (let j = 0; j < answerWords.length; j++) {
+          if (!used[j] && guessWords[i] === answerWords[j]) {
+            result[i] = "present";
+            used[j] = true;
+            break;
+          }
+        }
+      }
+
+      return result;
+    }
+
+    function renderRow(words, statuses) {
+      const row = document.createElement("div");
+      row.className = "row";
+
+      words.forEach((word, i) => {
+        const tile = document.createElement("div");
+        tile.className = `tile ${statuses[i]}`;
+        tile.textContent = word;
+        row.appendChild(tile);
+      });
+
+      gameEl.appendChild(row);
+    }
+
+    function startGame() {
+      const selectedPuzzle = PUZZLES[phraseSelect.value];
+      currentPhrase = selectedPuzzle.phrase;
+      answer = normalizePhrase(currentPhrase).split(" ");
+      guessCount = 0;
+      gameOver = false;
+
+      playArea.style.display = "block";
+      gameEl.innerHTML = "";
+      messageEl.textContent = "";
+      guessInput.value = "";
+      guessInput.disabled = false;
+      guessBtn.disabled = false;
+
+      acronymDisplay.textContent = getAcronym(answer);
+      wordCountDisplay.textContent = `${answer.length} word${answer.length !== 1 ? "s" : ""} • ${maxGuesses} guesses`;
+
+      guessInput.focus();
+    }
+
+    function submitGuess() {
+      if (gameOver) return;
+
+      const raw = guessInput.value;
+      const normalized = normalizePhrase(raw);
+
+      if (!normalized) {
+        messageEl.textContent = "Please enter a phrase.";
+        return;
+      }
+
+      const guessWords = normalized.split(" ");
+
+      if (guessWords.length !== answer.length) {
+        messageEl.textContent = `Your guess must have exactly ${answer.length} words.`;
+        return;
+      }
+
+      const statuses = evaluateGuess(guessWords, answer);
+      renderRow(guessWords, statuses);
+      guessCount++;
+
+      if (guessWords.join(" ") === answer.join(" ")) {
+        messageEl.textContent = "🎉 Correct! You guessed the phrase.";
+        gameOver = true;
+        guessInput.disabled = true;
+        guessBtn.disabled = true;
+        return;
+      }
+
+      if (guessCount >= maxGuesses) {
+        messageEl.textContent = `Out of guesses! The phrase was: "${currentPhrase}"`;
+        gameOver = true;
+        guessInput.disabled = true;
+        guessBtn.disabled = true;
+        return;
+      }
+
+      const remaining = maxGuesses - guessCount;
+      messageEl.textContent = `${remaining} guess${remaining !== 1 ? "es" : ""} remaining.`;
+      guessInput.value = "";
+      guessInput.focus();
+    }
+
+    startBtn.addEventListener("click", startGame);
+    guessBtn.addEventListener("click", submitGuess);
+    restartBtn.addEventListener("click", startGame);
+
+    guessInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        submitGuess();
+      }
+    });
+
+    populateDropdown();
+  </script>
+</body>
+</html>
+
